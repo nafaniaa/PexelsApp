@@ -32,10 +32,10 @@ class PhotosViewModels(
 
 
     init {
-        getPhotos("photo")
+        getPhotos()
     }
 
-    fun getPhotos(query: String, perPage: Int = 20, page: Int = 1){
+    fun getPhotos(query: String = "photo", perPage: Int = 30, page: Int = 1){
         viewModelScope.launch {
             photosUiState = PhotosUiState.Loading
             photosUiState = try{

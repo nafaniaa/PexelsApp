@@ -26,7 +26,7 @@ class PexelsApiClient @Inject constructor(
 
     private val apiKeyInterceptor = Interceptor { chain ->
         val request = chain.request().newBuilder()
-            .addHeader("Authorization", context.getString(R.string.pexels_api_key))
+            .addHeader("Authorization", "cdxZ4nNCpse0YXKgTwUCAviD7H1xrGiIlMM5xfw2SxsjBegiQ5MlHWz1")
             .build()
         chain.proceed(request)
     }

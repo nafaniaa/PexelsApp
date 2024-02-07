@@ -37,6 +37,7 @@ class PhotosRepository(
 
 interface PhotosRepository{
     suspend fun getPhotos(query: String, perPage: Int, page: Int) : List<PexelsPhoto>
+    suspend fun getCuratedPhotos(query: String, perPage: Int, page: Int): List<PexelsPhoto>
 }
 
 class NetworkPhotosRepository(
@@ -58,5 +59,23 @@ class NetworkPhotosRepository(
             isCurated = photos.isCurated
         )
 
+    }
+
+    override suspend fun getCuratedPhotos(
+        query: String,
+        perPage: Int,
+        page: Int
+    ): List<PexelsPhoto> = pexelsApi.searchPhotos(query, perPage, page).photos.map  {photos ->
+        PexelsPhoto(
+            id = photos.id,
+            width = photos.width,
+            height = photos.height,
+            url = photos.url,
+            photographer = photos.photographer,
+            src = photos.src,
+            isLiked = photos.isLiked,
+            queryParam = photos.queryParam,
+            isCurated = true
+        )
     }
 }

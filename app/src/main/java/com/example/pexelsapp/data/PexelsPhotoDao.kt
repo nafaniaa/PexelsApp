@@ -45,4 +45,7 @@ interface PexelsPhotoDao {
 
     @Query("select count(*) > 0 from photos")
     suspend fun isEmpty(): Boolean
+
+    @Query("select * from photos where is_curated = 1")
+    fun getCurated(): Flow<List<PexelsPhotoEntity>>
 }
