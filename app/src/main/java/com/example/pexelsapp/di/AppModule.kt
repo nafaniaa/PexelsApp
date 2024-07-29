@@ -1,7 +1,16 @@
 package com.example.pexelsapp.di
 
+import com.example.pexelsapp.data.local.dao.PhotoDao
+import com.example.pexelsapp.data.local.database.AppDatabase
 import com.example.pexelsapp.data.remote.AuthInterceptor
 import com.example.pexelsapp.data.remote.PexelsApi
+import com.example.pexelsapp.data.repositories.PhotoRepository
+import com.example.pexelsapp.data.repositories.PhotoRepositoryImpl
+import com.example.pexelsapp.domain.usecases.DeletePhotoUseCase
+import com.example.pexelsapp.domain.usecases.GetAllPhotosUseCase
+import com.example.pexelsapp.domain.usecases.GetPhotoByIdUseCase
+import com.example.pexelsapp.domain.usecases.InsertPhotoUseCase
+import com.example.pexelsapp.domain.usecases.UpdatePhotoUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -38,5 +47,41 @@ object AppModule {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(PexelsApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun providePhotoRepository(photoDao: PhotoDao): PhotoRepository {
+        return PhotoRepositoryImpl(photoDao)
+    }
+
+    @Provides
+    @Singleton
+    fun provideInsertPhotoUseCase(repository: PhotoRepository): InsertPhotoUseCase {
+        return InsertPhotoUseCase(repository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideUpdatePhotoUseCase(repository: PhotoRepository): UpdatePhotoUseCase {
+        return UpdatePhotoUseCase(repository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideDeletePhotoUseCase(repository: PhotoRepository): DeletePhotoUseCase {
+        return DeletePhotoUseCase(repository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetAllPhotosUseCase(repository: PhotoRepository): GetAllPhotosUseCase {
+        return GetAllPhotosUseCase(repository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetPhotoByIdUseCase(repository: PhotoRepository): GetPhotoByIdUseCase {
+        return GetPhotoByIdUseCase(repository)
     }
 }
