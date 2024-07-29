@@ -18,11 +18,11 @@ object DatabaseModule {
 
     @Provides
     @Singleton
-    fun provideDatabase(@ApplicationContext appContext: Context): AppDatabase {
+    fun provideDatabase(applicationContext: Context): AppDatabase {
         return Room.databaseBuilder(
-            appContext,
+            applicationContext,
             AppDatabase::class.java,
-            "photos.db"
+            "pexels_db"
         ).build()
     }
 
