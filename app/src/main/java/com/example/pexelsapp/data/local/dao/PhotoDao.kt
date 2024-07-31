@@ -11,7 +11,7 @@ import com.example.pexelsapp.data.local.entities.Photo
 
 @Dao
 interface PhotoDao {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert
     suspend fun insert(photo: Photo)
 
     @Update
@@ -26,5 +26,6 @@ interface PhotoDao {
     @Query("SELECT * FROM photos WHERE id = :id")
     fun getPhotoById(id: Int): LiveData<Photo>
 
-
+    @Insert
+    suspend fun insertAll(photos: List<Photo>)
 }

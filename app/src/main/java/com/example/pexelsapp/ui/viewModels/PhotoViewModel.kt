@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.pexelsapp.data.local.dao.PhotoDao
 import com.example.pexelsapp.data.local.entities.Photo
+import com.example.pexelsapp.domain.models.PhotoModel
 import com.example.pexelsapp.domain.usecases.DeletePhotoUseCase
 import com.example.pexelsapp.domain.usecases.GetAllPhotosUseCase
 import com.example.pexelsapp.domain.usecases.GetPhotoByIdUseCase
@@ -24,25 +25,25 @@ class PhotoViewModel @Inject constructor(
     private val getPhotoByIdUseCase: GetPhotoByIdUseCase
 ) : ViewModel() {
 
-    val allPhotos: LiveData<List<Photo>> = getAllPhotosUseCase.invoke()
+    val allPhotos: LiveData<List<PhotoModel>> = getAllPhotosUseCase.invoke()
 
-    fun getPhotoById(id: Int): LiveData<Photo> {
+    fun getPhotoById(id: Int): LiveData<PhotoModel> {
         return getPhotoByIdUseCase.invoke(id)
     }
 
-    fun insert(photo: Photo) {
+    fun insert(photo: PhotoModel) {
         viewModelScope.launch {
             insertPhotoUseCase.invoke(photo)
         }
     }
 
-    fun update(photo: Photo) {
+    fun update(photo: PhotoModel) {
         viewModelScope.launch {
             updatePhotoUseCase.invoke(photo)
         }
     }
 
-    fun delete(photo: Photo) {
+    fun delete(photo: PhotoModel) {
         viewModelScope.launch {
             deletePhotoUseCase.invoke(photo)
         }

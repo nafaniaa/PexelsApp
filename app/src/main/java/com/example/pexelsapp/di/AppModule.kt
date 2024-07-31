@@ -51,8 +51,8 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun providePhotoRepository(photoDao: PhotoDao): PhotoRepository {
-        return PhotoRepositoryImpl(photoDao)
+    fun providePhotoRepository(photoDao: PhotoDao, pexelsApi: PexelsApi): PhotoRepository {
+        return PhotoRepositoryImpl(photoDao, pexelsApi)
     }
 
     @Provides
