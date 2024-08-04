@@ -5,6 +5,7 @@ import com.example.pexelsapp.data.repositories.PhotoRepository
 import com.example.pexelsapp.domain.models.PhotoModel
 import javax.inject.Inject
 
+// This class represents a use case for updating a photo in the repository
 class UpdatePhotoUseCase @Inject constructor(
     private val repository: PhotoRepository
 ) {

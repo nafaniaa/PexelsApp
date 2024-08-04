@@ -5,6 +5,9 @@ import com.example.pexelsapp.data.repositories.PhotoRepository
 import com.example.pexelsapp.domain.models.PhotoModel
 import javax.inject.Inject
 
+
+// This class represents a use case for deleting a photo from the repository
+
 class DeletePhotoUseCase @Inject constructor(
     private val repository: PhotoRepository
 ) {
