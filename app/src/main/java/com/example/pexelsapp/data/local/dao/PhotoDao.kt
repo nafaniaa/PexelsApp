@@ -8,6 +8,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import com.example.pexelsapp.data.local.entities.Photo
+import com.example.pexelsapp.domain.models.PhotoModel
 
 @Dao
 interface PhotoDao {
@@ -28,4 +29,7 @@ interface PhotoDao {
 
     @Insert
     suspend fun insertAll(photos: List<Photo>)
+
+    @Query("SELECT * FROM photos")
+    suspend fun getPhotos():  List<PhotoModel>
 }

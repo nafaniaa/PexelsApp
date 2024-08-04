@@ -42,6 +42,10 @@ class PhotoRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun getPhotos(): List<PhotoModel> {
+        return photoDao.getPhotos()
+    }
+
 
     suspend fun fetchAndSavePhotos(query: String, perPage: Int = 15, page: Int = 1) {
         val response = pexelsApi.searchPhotos(query, perPage, page)
@@ -52,4 +56,6 @@ class PhotoRepositoryImpl @Inject constructor(
             }
         }
     }
+
+
 }

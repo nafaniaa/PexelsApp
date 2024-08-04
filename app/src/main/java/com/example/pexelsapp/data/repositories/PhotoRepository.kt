@@ -10,4 +10,5 @@ interface PhotoRepository {
     suspend fun delete(photo: PhotoModel)
     fun getAllPhotos(): LiveData<List<PhotoModel>>
     fun getPhotoById(id: Int): LiveData<PhotoModel>
+    suspend fun getPhotos(): List<PhotoModel>
 }

@@ -8,7 +8,9 @@ fun Photo.toDomainModel(): PhotoModel {
         id = id,
         title = title,
         url = url,
-        description = description
+        description = description,
+        photographer = photographer,
+        src = src
     )
 }
 

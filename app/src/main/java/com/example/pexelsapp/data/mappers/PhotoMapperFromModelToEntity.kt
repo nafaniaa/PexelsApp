@@ -8,7 +8,9 @@ fun PhotoModel.toEntity(): Photo {
         id = id,
         title = title,
         url = url,
-        description = description
+        description = description,
+        photographer = photographer,
+        src = src
     )
 }
 

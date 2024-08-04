@@ -8,7 +8,9 @@ fun PhotoDto.toEntity(): Photo {
         id = id,
         title = photographer, 
         url = src.original,
-        description = ""
+        description = "",
+        photographer = photographer,
+        src = src
     )
 }
 
