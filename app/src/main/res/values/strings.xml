@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">PexelsApp</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="try_again">Try Again</string>
+    <string name="explore">Explore</string>
+    <string name="network_error">Network error</string>
+    <string name="no_data">You haven\'t saved anything yet</string>
+    <string name="clear_search">Clear search\n</string>
+    <string name="featured_collections">featured collections</string>
 </resources>
