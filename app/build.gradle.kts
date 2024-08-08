@@ -75,6 +75,9 @@ android {
 }
 
 dependencies {
+
+    implementation("androidx.core:core-splashscreen:1.2.0-alpha01")
+
     // Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
@@ -93,6 +96,7 @@ dependencies {
 
     // Coil
     implementation("io.coil-kt:coil:2.7.0")
+
 
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.8.4")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.4")

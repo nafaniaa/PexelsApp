@@ -5,11 +5,11 @@ import com.example.pexelsapp.domain.models.PhotoModel
 import javax.inject.Inject
 
 
-// This class represents a use case for fetching a list of photos from the repository
+
 class GetPhotosUseCase @Inject constructor(
     private val repository: PhotoRepository
 ) {
-    suspend operator fun invoke(): List<PhotoModel> {
-        return repository.getPhotos()
+    suspend operator fun invoke(query: String, perPage: Int, page: Int): List<PhotoModel> {
+        return repository.getPhotos(query, perPage, page)
     }
 }

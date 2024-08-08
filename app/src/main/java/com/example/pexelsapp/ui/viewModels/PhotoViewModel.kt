@@ -1,62 +1,74 @@
 package com.example.pexelsapp.ui.viewModels
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.pexelsapp.data.local.dao.PhotoDao
-import com.example.pexelsapp.data.local.entities.Photo
 import com.example.pexelsapp.domain.models.PhotoModel
 import com.example.pexelsapp.domain.usecases.DeletePhotoUseCase
 import com.example.pexelsapp.domain.usecases.GetAllPhotosUseCase
 import com.example.pexelsapp.domain.usecases.GetPhotoByIdUseCase
+import com.example.pexelsapp.domain.usecases.GetPhotosUseCase
 import com.example.pexelsapp.domain.usecases.InsertPhotoUseCase
 import com.example.pexelsapp.domain.usecases.UpdatePhotoUseCase
-import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@HiltViewModel
 class PhotoViewModel @Inject constructor(
-    // The use cases are injected into the ViewModel
     private val insertPhotoUseCase: InsertPhotoUseCase,
     private val updatePhotoUseCase: UpdatePhotoUseCase,
     private val deletePhotoUseCase: DeletePhotoUseCase,
-    private val getAllPhotosUseCase: GetAllPhotosUseCase,
-    private val getPhotoByIdUseCase: GetPhotoByIdUseCase
+    private val getPhotoByIdUseCase: GetPhotoByIdUseCase,
+    private val getPhotosUseCase: GetPhotosUseCase,
+    private val getAllPhotosUseCase: GetAllPhotosUseCase
 ) : ViewModel() {
-    // Expose a read-only LiveData of all photos
-    val allPhotos: LiveData<List<PhotoModel>> = getAllPhotosUseCase.invoke()
 
-    // Get a LiveData of a photo by its ID
-    fun getPhotoById(id: Int): LiveData<PhotoModel> {
-        return getPhotoByIdUseCase.invoke(id)
+    private val _allPhotos = MutableStateFlow<List<PhotoModel>>(emptyList())
+    val allPhotos: Flow<List<PhotoModel>> = _allPhotos
+
+    init {
+        loadAllPhotos()
     }
 
-    // Insert a new photo
-    fun insert(photo: PhotoModel) {
-        // Use the viewModelScope to launch a coroutine
+    fun loadAllPhotos() {
         viewModelScope.launch {
-            // Call the InsertPhotoUseCase to insert the photo
+            getAllPhotosUseCase.invoke().collect { photos ->
+                _allPhotos.value = photos
+            }
+        }
+    }
+
+    fun getPhotoById(id: Int): LiveData<PhotoModel?> {
+        return getPhotoByIdUseCase.invoke(id).asLiveData()
+    }
+
+    fun insertPhoto(photo: PhotoModel) {
+        viewModelScope.launch {
             insertPhotoUseCase.invoke(photo)
         }
     }
 
-    // Update an existing photo
-    fun update(photo: PhotoModel) {
-        // Use the viewModelScope to launch a coroutine
+    fun updatePhoto(photo: PhotoModel) {
         viewModelScope.launch {
-            // Call the UpdatePhotoUseCase to update the photo
             updatePhotoUseCase.invoke(photo)
         }
     }
 
-    // Delete a photo
-    fun delete(photo: PhotoModel) {
-        // Use the viewModelScope to launch a coroutine
+    fun deletePhoto(photo: PhotoModel) {
         viewModelScope.launch {
-            // Call the DeletePhotoUseCase to delete the photo
             deletePhotoUseCase.invoke(photo)
         }
+    }
+
+    fun loadPhotos(query: String, perPage: Int = DEFAULT_PAGE_SIZE, page: Int = 1) {
+        viewModelScope.launch {
+            getPhotosUseCase(query, perPage, page)
+        }
+    }
+
+    companion object {
+        private const val DEFAULT_PAGE_SIZE = 15
     }
 }
