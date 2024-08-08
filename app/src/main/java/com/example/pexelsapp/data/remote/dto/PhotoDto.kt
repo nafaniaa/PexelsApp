@@ -3,18 +3,22 @@ package com.example.pexelsapp.data.remote.dto
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-// This file contains a data class that represents a single photo in the Pexels API response
+
 data class PhotoDto(
-    @SerializedName("id") @Expose
+    @SerializedName("id")
     val id: Int,
-    @SerializedName("width") @Expose
+    @SerializedName("width")
     val width: Int,
-    @SerializedName("height") @Expose
+    @SerializedName("height")
     val height: Int,
-    @SerializedName("url") @Expose
+    @SerializedName("url")
     val url: String,
-    @SerializedName("photographer") @Expose
+    @SerializedName("photographer")
     val photographer: String,
-    @SerializedName("src") @Expose
-    val src: SrcDto
+    @SerializedName("src")
+    val src: SrcDto,
+    @SerializedName("description")
+    val description: String,
+    @SerializedName("title")
+    val title: String
 )
