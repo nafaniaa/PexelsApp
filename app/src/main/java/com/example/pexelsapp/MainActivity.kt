@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity() {
                     NetworkStatus.Available -> networkStatusView.hideStatus()
                     NetworkStatus.Weak -> networkStatusView.showStatus("Weak Internet Connection", isCritical = false)
                     NetworkStatus.Unavailable -> networkStatusView.showStatus("No Internet Connection", isCritical = true)
-                }
+           }
             }
         }
     }
