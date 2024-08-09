@@ -28,6 +28,47 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
 
+        <!-- Search Bar -->
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/searchView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:queryHint="Search"
+            android:iconifiedByDefault="false"
+            app:layout_constraintTop_toBottomOf="@id/networkStatusView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp" />
+
+        <!-- Popular Requests (Horizontal RecyclerView) -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/popularRequestsRecyclerView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@id/searchView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:orientation="horizontal"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp" />
+
+        <!-- Popular Photos (Grid RecyclerView) -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/popularPhotosRecyclerView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@id/popularRequestsRecyclerView"
+            app:layout_constraintBottom_toTopOf="@id/themeToggleButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_default="wrap"
+            android:numColumns="2"
+            tools:listitem="@layout/item_photo" />
+
         <!-- Navigation Host Fragment -->
         <fragment
             android:id="@+id/nav_host_fragment"

@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pexelsapp.custom.CustomNetworkStatusView
 import com.example.pexelsapp.presentation.adapters.PhotoAdapter
+import com.example.pexelsapp.presentation.adapters.PopularPhotosAdapter
 import com.example.pexelsapp.ui.viewModels.PhotoViewModel
 import com.example.pexelsapp.util.NetworkObserver
 import com.example.pexelsapp.util.NetworkStatus
@@ -31,11 +32,17 @@ class MainActivity : AppCompatActivity() {
         setupRecyclerView()
         setupThemeToggleButton()
 
+        fetchPhotos()
+
+
         lifecycleScope.launch {
             viewModel.allPhotos.collect { photos ->
                 (findViewById<RecyclerView>(R.id.recycler_view).adapter as? PhotoAdapter)?.submitList(photos)
             }
         }
+    }
+    private fun fetchPhotos() {
+        viewModel.fetchPopularPhotos()
     }
 
     private fun setupRecyclerView() {

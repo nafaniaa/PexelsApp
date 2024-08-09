@@ -1,9 +1,12 @@
 package com.example.pexelsapp.ui.viewModels
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.pexelsapp.data.mappers.toDomainModel
+import com.example.pexelsapp.data.remote.RetrofitInstance
 import com.example.pexelsapp.domain.models.PhotoModel
 import com.example.pexelsapp.domain.usecases.DeletePhotoUseCase
 import com.example.pexelsapp.domain.usecases.GetAllPhotosUseCase
@@ -28,6 +31,7 @@ class PhotoViewModel @Inject constructor(
     private val _allPhotos = MutableStateFlow<List<PhotoModel>>(emptyList())
     val allPhotos: Flow<List<PhotoModel>> = _allPhotos
 
+    private val apiService = RetrofitInstance.api
     init {
         loadAllPhotos()
     }
@@ -70,5 +74,18 @@ class PhotoViewModel @Inject constructor(
 
     companion object {
         private const val DEFAULT_PAGE_SIZE = 15
+    }
+
+    fun fetchPopularPhotos() {
+        viewModelScope.launch {
+            try {
+                val response = apiService.searchPhotos("popular")
+                val photoDtos = response.body()?.photos ?: emptyList()
+                val photoModels = photoDtos.map { it.toDomainModel() }
+                _allPhotos.value = photoModels
+            } catch (e: Exception) {
+                Log.e("PhotoViewModel", "Error uploading photos", e)
+            }
+        }
     }
 }
