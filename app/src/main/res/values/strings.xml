@@ -9,4 +9,6 @@
     <string name="no_data">You haven\'t saved anything yet</string>
     <string name="clear_search">Clear search\n</string>
     <string name="featured_collections">featured collections</string>
+    <string name="no_internet_connection">No Internet Connection</string>
+    <string name="weak_internet_connection">Weak Internet Connection</string>
 </resources>
