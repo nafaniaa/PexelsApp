@@ -102,17 +102,27 @@ Run the application on your Android device or emulator.
         - com
           - example
             - pexelsapp
+              -custom
+                - CustomNetworkStatusView
               - data
                 - local
                   - dao
                     - PhotoDao
+                  - entities
+                    - Photo
+                  - database
+                    - AppDatabase
                 - remote
-                  - PexelsResponseDto
-                  - PhotoDto
-                  - SrcDto
-              - entities
-                - Photo
-              - domain
+                  - dto
+                     - PexelsResponseDto
+                     - PhotoDto
+                     - SrcDto
+                  -AuthInterceptor
+                  -PexelsApi
+                  -RetrofitInstance      
+              - mappers
+              - repositories
+           - domain
                 - models
                   - PhotoModel
                 - usecases
@@ -122,28 +132,38 @@ Run the application on your Android device or emulator.
                   - GetPhotosUseCase
                   - InsertPhotoUseCase
                   - UpdatePhotoUseCase
-              - presentation
+          - presentation
                 - activities
                   - SplashActivity
                 - adapters
                   - PhotoAdapter
+                  - PhotosDiffCallback
+                  - PopularPhotoAdapter
                 - fragments
                   - HomeFragment
-                - ui
+           - ui
                   - theme
                   - viewModels
                     - HomeViewModel
                     - PhotoViewModel
-              - util
-                - MainActivity
-                - PexelsApplication
+                    - SplashViewModel
+           - di
+                  - AppModule
+                  - DatabaseModule
+           - util
+                  -NetworkObserver
+           - MainActivity
+           - PexelsApplication
 - res
   - drawable
   - layout
     - activity_splash.xml
+    - custom_network_status_view.xml
     - fragment_home.xml
     - item_photo.xml
     - main_activity.xml
+  - navigation
+    - nav_graph.xml
   - layout-navexposed-nonav
   - mipmap-anydpi-v26
   - mipmap-hdpi
@@ -151,6 +171,11 @@ Run the application on your Android device or emulator.
   - mipmap-xhdpi
   - mipmap-xxhdpi
   - mipmap-xxxhdpi
+- values
+  -colors.xml
+  -image_style.xml
+  -strings.xml
+  -themes.xml
   - navigation
     - nav_graph.xml
   - values
